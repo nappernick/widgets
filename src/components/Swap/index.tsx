@@ -59,7 +59,6 @@ export default function Swap(props: SwapProps) {
             <ReverseButton />
             <Output />
             <Toolbar />
-            {useBrandedFooter() && <BrandedFooter />}
           </PopoverBoundaryProvider>
         </div>
       </SwapInfoProvider>

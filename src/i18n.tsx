@@ -77,6 +77,7 @@ const plurals: LocalePlural = {
 }
 
 export async function dynamicActivate(locale: SupportedLocale) {
+  // @ts-ignore
   i18n.loadLocaleData(locale, { plurals: () => plurals[locale] })
   try {
     const catalog = await import(`./locales/${locale}.js`)
@@ -119,12 +120,14 @@ export function Provider({ locale, forceRenderAfterLocaleChange = true, onActiva
   // as [there are no "default" messages](https://github.com/lingui/js-lingui/issues/388#issuecomment-497779030).
   // See https://github.com/lingui/js-lingui/issues/1194#issuecomment-1068488619.
   if (i18n.locale === undefined && locale === DEFAULT_LOCALE) {
+    // @ts-ignore
     i18n.loadLocaleData(DEFAULT_LOCALE, { plurals: () => plurals[DEFAULT_LOCALE] })
     i18n.load(DEFAULT_LOCALE, {})
     i18n.activate(DEFAULT_LOCALE)
   }
 
   return (
+    // @ts-ignore
     <I18nProvider forceRenderOnLocaleChange={forceRenderAfterLocaleChange} i18n={i18n}>
       {children}
     </I18nProvider>

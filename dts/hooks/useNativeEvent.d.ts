@@ -1,0 +1,1 @@
+export default function useNativeEvent<K extends keyof HTMLElementEventMap>(element: HTMLElement | null, type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions | undefined): void;

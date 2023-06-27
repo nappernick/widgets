@@ -15,8 +15,6 @@ package-lock.json
 # builds
 /cache
 /cosmos-export
-/dist
-/dts
 
 # IDE metadata
 .idea/
@@ -31,6 +29,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 notes.txt
+.yarn/*
 
 # tests
 /coverage

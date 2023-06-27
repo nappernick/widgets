@@ -1,7 +1,6 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { Trade } from '@uniswap/router-sdk'
 import { Currency, Token, TradeType } from '@uniswap/sdk-core'
-import type { ChainId } from '@uniswap/smart-order-router'
 import { QuoteType, RouterPreference } from 'hooks/routing/types'
 import { OnSwapQuote } from 'state/swap'
 
@@ -10,6 +9,28 @@ export enum TradeState {
   INVALID,
   NO_ROUTE_FOUND,
   VALID,
+}
+
+export enum ChainId {
+  MAINNET = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GOERLI = 5,
+  KOVAN = 42,
+
+  ARBITRUM_ONE = 42161,
+  ARBITRUM_RINKEBY = 421611,
+
+  OPTIMISM = 10,
+  OPTIMISM_GOERLI = 420,
+
+  POLYGON = 137,
+  POLYGON_MUMBAI = 80001,
+
+  CELO = 42220,
+  CELO_ALFAJORES = 44787,
+
+  BNB = 56,
 }
 
 // from https://github.com/Uniswap/routing-api/blob/main/lib/handlers/schema.ts

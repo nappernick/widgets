@@ -5,7 +5,6 @@ import type { AlphaRouterConfig } from '@uniswap/smart-order-router'
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import {
   AlphaRouter,
-  ChainId,
   OnChainQuoteProvider,
   routeAmountsToString,
   StaticV2SubgraphProvider,
@@ -18,6 +17,28 @@ import { isExactInput } from 'utils/tradeType'
 
 import { transformSwapRouteToGetQuoteResult } from './transformSwapRouteToGetQuoteResult'
 import { SwapRouterNativeAssets } from './types'
+
+enum ChainId {
+  MAINNET = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GOERLI = 5,
+  KOVAN = 42,
+
+  ARBITRUM_ONE = 42161,
+  ARBITRUM_RINKEBY = 421611,
+
+  OPTIMISM = 10,
+  OPTIMISM_GOERLI = 420,
+
+  POLYGON = 137,
+  POLYGON_MUMBAI = 80001,
+
+  CELO = 42220,
+  CELO_ALFAJORES = 44787,
+
+  BNB = 56,
+}
 
 const AUTO_ROUTER_SUPPORTED_CHAINS: ChainId[] = Object.values(ChainId).filter((chainId): chainId is ChainId =>
   Number.isInteger(chainId)
@@ -39,6 +60,7 @@ function getRouter(chainId: ChainId, provider: BaseProvider): AlphaRouter {
   // TODO(zzmp): Upstream to @uniswap/smart-order-router, exporting an enum of supported v2 chains for clarity.
   let v2SubgraphProvider
   if (chainId !== ChainId.MAINNET) {
+    // @ts-ignore
     v2SubgraphProvider = new StaticV2SubgraphProvider(chainId)
   }
 
@@ -49,9 +71,11 @@ function getRouter(chainId: ChainId, provider: BaseProvider): AlphaRouter {
   let onChainQuoteProvider
   let multicall2Provider
   if ([ChainId.POLYGON, ChainId.POLYGON_MUMBAI].includes(chainId)) {
+    // @ts-ignore
     multicall2Provider = new UniswapMulticallProvider(chainId, provider, 375_000)
     // See https://github.com/Uniswap/smart-order-router/blob/98c58bdee9981fd9ffac9e7d7a97b18302d5f77a/src/routers/alpha-router/alpha-router.ts#L464-L487
     onChainQuoteProvider = new OnChainQuoteProvider(
+      // @ts-ignore
       chainId,
       provider,
       multicall2Provider,
@@ -76,6 +100,7 @@ function getRouter(chainId: ChainId, provider: BaseProvider): AlphaRouter {
     )
   }
 
+  // @ts-ignore
   const router = new AlphaRouter({ chainId, provider, v2SubgraphProvider, multicall2Provider, onChainQuoteProvider })
   routers[chainId] = router
   routersCache.set(provider, routers)

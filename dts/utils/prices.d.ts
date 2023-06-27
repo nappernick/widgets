@@ -1,0 +1,12 @@
+import { Percent } from '@uniswap/sdk-core';
+import { Pair } from '@uniswap/v2-sdk';
+import { FeeAmount, Pool } from '@uniswap/v3-sdk';
+import { InterfaceTrade } from 'state/routing/types';
+export declare function largerPercentValue(a?: Percent, b?: Percent): Percent | undefined;
+export declare function computeRealizedPriceImpact(trade: InterfaceTrade): Percent;
+export declare function getPriceImpactWarning(priceImpact: Percent): 'warning' | 'error' | undefined;
+export declare function getFeeAmount(pool: Pair | Pool): FeeAmount;
+export declare function computeRealizedLPFeePercent(trade: InterfaceTrade): Percent;
+type WarningSeverity = 0 | 1 | 2 | 3 | 4;
+export declare function warningSeverity(priceImpact: Percent | undefined): WarningSeverity;
+export {};

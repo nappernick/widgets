@@ -32,6 +32,7 @@ export function useTradeExchangeRate(
 
   return useMemo(
     () => [
+      // @ts-ignore
       `${1} ${price.baseCurrency.symbol} = ${formatPrice(price, NumberType.TokenTx)} ${price.quoteCurrency.symbol}`,
       usdcPrice && formatCurrencyAmount(usdcPrice, NumberType.FiatTokenPrice),
     ],
